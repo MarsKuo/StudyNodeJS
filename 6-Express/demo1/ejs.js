@@ -13,7 +13,7 @@ app.set('view engine', 'ejs')
 
 
 app.get('/', function (req, res) {
-  res.render('index', { 'title': '<h2>六角學院</h2>' ,'boss':'Kuo'});
+  res.render('Lindex', { 'title': '<h2>六角學院</h2>' ,'boss':'Kuo','course':['html','js','bs']});
 })
 
 app.get('/user', function (req, res) {

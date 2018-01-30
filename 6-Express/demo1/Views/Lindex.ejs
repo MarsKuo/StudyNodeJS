@@ -1,0 +1,11 @@
+<% layout('_layout') %>
+
+<!-- 
+  有程式邏輯用<% %>，顯示字串用<%=%>，顯示HTML用<%-%> -->
+  <%- title %>
+  <h2><%=boss %> </h2>
+
+<% for(var i=0;course.length>i;i++) { %>
+<li> <%= course[i] %></li>
+<% } %>
+
