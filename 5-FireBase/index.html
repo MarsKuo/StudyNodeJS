@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyC3yGQXgw93vpNVOn9r9ohaFQ3Z461sVbc",
+      authDomain: "project-ed7f0.firebaseapp.com",
+      databaseURL: "https://project-ed7f0.firebaseio.com",
+      projectId: "project-ed7f0",
+      storageBucket: "project-ed7f0.appspot.com",
+      messagingSenderId: "334795583792"
+    };
+    firebase.initializeApp(config);
+    
+    //ref() 尋找資料庫路徑
+    //set() 新增資料
+    firebase.database().ref().set('hi');
+  </script>
+</head>
+<body>
+  
+<h1>Hello</h1>
+</body>
+</html>
