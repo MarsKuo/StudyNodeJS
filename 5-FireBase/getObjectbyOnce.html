@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+
+</head>
+
+<body>
+
+  <h1 id="title">Hello</h1>
+
+
   <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
   <script>
     // Initialize Firebase
@@ -17,31 +26,23 @@
       messagingSenderId: "334795583792"
     };
     firebase.initializeApp(config);
-    
-    //ref() 尋找資料庫路徑
-    //set() 新增資料
-    //firebase.database().ref().set('hi111');
-    //firebase.database().ref().set([0,1,2,3]);
-    //firebase 全部物件格式，不能放陣列內容
 
-    //一個班級有兩個學生
-    var data = null ;
-    data={
-      student1:{
-        name:'tom',
-        num: '1'
-      },
-      student2:{
-        name: 'john',
-        num: '2'
-      }
-    }
-    firebase.database().ref().set(data);
-    firebase.database().ref('student1//name').set('aaaaa');
+    //insert
+    var myName = firebase.database().ref('myfriends').set({
+      friend: 'tom',
+      friend2:'bob'
+    })
+
+    // once 讀取一次資料庫的資料、on 隨時監聽
+    //快照
+
+    var friendRef = firebase.database().ref('myfriends');
+
+    friendRef.once('value', function (snapshot) {
+      console.log(snapshot.val())
+      // console.log(typeof(snapshot.val()))
+    })
   </script>
-</head>
-<body>
-  
-<h1>Hello</h1>
 </body>
+
 </html>
