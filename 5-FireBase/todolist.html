@@ -10,10 +10,10 @@
 </head>
 
 <body>
-  
+
 
   <input type="text" id="txt" placeholder="請輸入內容">
-  <input type="button" value="送出" id="btn">
+  <input type="button" value="送出" id="send">
   <ul id="list">
 
   </ul>
@@ -34,16 +34,28 @@
 
     //dom
     var txt = document.getElementById('txt');
-    var send = document.getElementById('btn');
-    var send = document.getElementById('txt');
+    var send = document.getElementById('send');
+    var list = document.getElementById('list');
 
-   
+    // todos
+    var todos = firebase.database().ref('todos');
 
-    var ref = firebase.database().ref();
-    ref.on('value', function (snapshot) {
-      var path = document.getElementById('content');
-      console.log(JSON.stringify(snapshot.val()));
-      path.textContent = JSON.stringify(snapshot.val(), null, 3);
+    //按送出按鈕，可以寫入到資料庫
+    send.addEventListener('click', function (e) {
+      todos.push({ content: txt.value })
+    })
+    //顯示內容出來
+
+    todos.on('value', function (snapshot) {
+      // var path = document.getElementById('content');
+      // console.log(JSON.stringify(snapshot.val()));
+      // path.textContent = JSON.stringify(snapshot.val(), null, 3);
+      var str = '';
+      var data = snapshot.val();
+      for (var item in data) {
+          str += '<li>' + data[item].content +'</li>';
+      }
+      list.innerHTML = str;
     })
   </script>
 </body>
