@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+    <script>
+    var config = {
+      apiKey: "AIzaSyC3yGQXgw93vpNVOn9r9ohaFQ3Z461sVbc",
+      authDomain: "project-ed7f0.firebaseapp.com",
+      databaseURL: "https://project-ed7f0.firebaseio.com",
+      projectId: "project-ed7f0",
+      storageBucket: "project-ed7f0.appspot.com",
+      messagingSenderId: "334795583792"
+    };
+    firebase.initializeApp(config);
+    // 排序
+    // 由輕到重
+    var people = {
+        "mike": {
+          "length" : 12.5,
+          "weight": 5000
+        },
+        "casper": {
+          "length" : 9,
+          "weight" : 4500
+        },
+        "bob": {
+          "length" : false,
+          "weight" : 3500
+        },
+        "john": {
+          "length" : 9,
+          "weight" : 3500
+        }
+        ,
+        "josh": {
+          "length" : 9,
+          "weight" : 2500
+        }
+      };
+    firebase.database().ref('people').set(people);
+    var peopleRef = firebase.database().ref('people');
+    // 路徑>>排序('屬性')>>過濾>>讀取> forEach 依序撈出資料
+    //startAt，xx以上   endAt，xx以下
+    peopleRef.orderByChild('weight').equalTo(2500).once('value',function(snapshot){
+        snapshot.forEach(function(item){
+            console.log(item.key);
+            console.log(item.val());
+        })
+        // console.log(snapshot.val());
+    })
+    </script>
+</body>
+</html>

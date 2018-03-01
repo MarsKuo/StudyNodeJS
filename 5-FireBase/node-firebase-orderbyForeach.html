@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script src="https://www.gstatic.com/firebasejs/4.6.1/firebase.js"></script>
+    <script>
+    var config = {
+        //請輸入confi
+    };
+    firebase.initializeApp(config);
+    // 排序
+    // 由輕到重
+    var people = {
+        "bob": {
+          "height" : 178,
+          "old": 18,
+          "weight": 70
+        },
+        "casper": {
+          "height" : 180,
+          "old" : 13,
+          "weight" : 80
+        },
+        "mike":{
+          "height" : 162,
+          "old": 15,
+          "weight": 55
+        }
+      };
+    firebase.database().ref('people').set(people);
+    var peopleRef = firebase.database().ref('people');
+    // 路徑>>排序('屬性')>>讀取> forEach 依序撈出資料
+    peopleRef.orderByChild('old').once('value',function(snapshot){
+        snapshot.forEach(function(item){
+            console.log(item.val());
+        })
+        // console.log(snapshot.val());
+    })
+    </script>
+</body>
+</html>

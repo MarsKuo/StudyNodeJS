@@ -53,9 +53,17 @@
       var str = '';
       var data = snapshot.val();
       for (var item in data) {
-          str += '<li>' + data[item].content +'</li>';
+        str += '<li data-key="'+item+'">' + data[item].content + '</li>';
       }
       list.innerHTML = str;
+    })
+
+    //刪除邏輯
+    list.addEventListener('click', function (e) {
+      if (e.target.nodeName = "LI") {
+        var key = e.target.dataset.key;
+        todos.child(key).remove();
+      }
     })
   </script>
 </body>
