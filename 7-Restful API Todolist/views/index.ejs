@@ -14,7 +14,7 @@
         <% for(item in todolist) {%>
         <li>
             <%- todolist[item].content %> 
-            <input type="button" value="刪除">
+            <input data-id="<%- item %>" type="button" value="刪除">
         </li>
         <% } %>
     </ul>

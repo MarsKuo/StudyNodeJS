@@ -49,11 +49,11 @@ app.post('/addTodo', function (req, res) {
       fireData.ref('todos').once('value', function (snapshot) {
         res.send(
           {
-            "success":true,
-            "result":snapshot.val(),
+            "success": true,
+            "result": snapshot.val(),
             "message": "資料讀取成功"
           }
-          
+
         );
       })
     })
@@ -61,18 +61,18 @@ app.post('/addTodo', function (req, res) {
 
 
 //刪除邏輯
-app.post('/removeTodo',function(req,res){
-  var _id =req.body.id;
+app.post('/removeTodo', function (req, res) {
+  var _id = req.body.id;
   fireData.ref('todos').child(_id).remove()
-  .then(function(){
-    fireData.ref('todos').once('value',function(snapshot){
-      res.send({
-        "success":true,
-        "result":snapshot.val(),
-        "message": "資料讀取成功"
+    .then(function () {
+      fireData.ref('todos').once('value', function (snapshot) {
+        res.send({
+          "success": true,
+          "result": snapshot.val(),
+          "message": "資料刪除成功"
+        })
       })
     })
-  })
 })
 
 // fireData.ref('todos').set({"title":1234}).then(function(){
