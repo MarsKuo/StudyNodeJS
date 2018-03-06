@@ -19,7 +19,7 @@ send.addEventListener('click', function (e) {
     var data = originData.result;
     var str = '';
     for (item in data) {
-      str += '<li>' + data[item].content + '</li>';
+      str += '<li>' + data[item].content + '<input type="button" value="刪除" data-id="' + item + '"></li>';
     }
     list.innerHTML = str;
   }
@@ -27,19 +27,26 @@ send.addEventListener('click', function (e) {
 
 
 
-list.addEventListener('click',function(e){
-  alert(e);
-  if(e.target.nodeName !== 'INPUT'){
+list.addEventListener('click', function (e) {
+  if (e.target.nodeName !== 'INPUT') {
     return;
   }
-  var id =e.target.dataset.id ;
-  var xhr= new XMLHttpRequest();
+  var id = e.target.dataset.id;
+  var xhr = new XMLHttpRequest();
   xhr.open('post', '/removeTodo');
   xhr.setRequestHeader('Content-type', "application/json");
   var removetodo = JSON.stringify({ "id": id });
   xhr.send(removetodo);
-  xhr.onload = function(){
+
+  xhr.onload = function () {
     var originDATA = JSON.parse(xhr.responseText);
-    console.log(originDATA);
+    var data = originDATA.result;
+    var str = '';
+    for (var item in data) {
+      str += '<li>' + data[item].content + '<input type="button" value="刪除" data-id="' + item + '"></li>';
+    }
+    list.innerHTML = str;
   }
 })
+
+
