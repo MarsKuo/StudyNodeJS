@@ -31,8 +31,20 @@ var user = require('./routes/user');
 app.use('/', routes);
 app.use('/login', login);
 app.use('/signup', signup);
-app.use('/user', user);
+
 app.use('/messageBoard', messageBoard);
+
+
+
+//check login 一定要登入才可以進去user
+app.use(function(req,res,next){
+  if(req.session.uid){
+    return next();
+  }
+  res.redirect('/');
+})
+
+app.use('/user', user);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
