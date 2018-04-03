@@ -1,0 +1,44 @@
+
+<% extend('../layouts/dashboard-layout.ejs') %>
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+
+    <div class="btn-group w-100">
+      <a href="#" class="btn btn-outline-secondary w-100 rounded-0 active">已發佈</a>
+      <a href="#" class="btn btn-outline-secondary w-100 rounded-0 ">草稿</a>
+      <a href="article.html" class="btn btn-primary">新增文章</a>
+    </div>
+
+    <% for(var prop in articles){ %>
+      <div class="card my-3">
+        <h4 class="card-header">
+          <%- articles[prop].title %>
+        </h4>
+        <div class="card-body">
+          <%- stringtags( articles[prop].content).slice(0,150) %> ...
+          <div>
+            <span class="fa fa-clock-o"></span> 
+            <%- momont(articles[prop].update_time * 1000).format('YYYY/MM/DD') %>
+            ,
+            <span class="fa fa-folder-open-o"></span>
+            <span>
+              
+                沒有分類
+              
+            </span>
+          </div>
+        </div>
+      <% }%>
+        <div class="card-footer p-0 btn-group">
+          <a href="#" class="btn btn-outline-danger rounded-0 deletePost" data-id="-L1zrsyiWCAbMQ5x8Plk" data-title="補充課程：Sass 與 includePaths">刪除</a>
+          <a href="#" class="btn btn-outline-secondary w-100 rounded-0">編輯</a>
+          
+          <a href="#" target="_blank" class="btn btn-outline-secondary w-100 rounded-0">預覽</a>
+          
+        </div>
+      </div>
+    
+  </div>
+</div>
+
