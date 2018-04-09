@@ -10,26 +10,28 @@ const articlesRef = firebaseAdminDb.ref('/articles/');
 
 router.get('/archives', function (req, res, next) {
 
-  let categories = {};
+  const status = req.query.status || 'public';
 
+  let categories = {};
   categoriesRef.once('value').then(function (snapshot) {
     categories = snapshot.val();
     return articlesRef.orderByChild('update_time').once('value');
   }).then(function (snapshot) {
-    const  articles =[];
+    const articles = [];
 
-    snapshot.forEach(function(snapshotChild){
-      articles.push(snapshotChild.val());
+    snapshot.forEach(function (snapshotChild) {
+      if(status === snapshotChild.val().status){
+        articles.push(snapshotChild.val());
+      }
     })
-
     articles.reverse();
-
     res.render('dashboard/archives', {
       title: 'Express',
       articles,
       categories,
       stringtags,
-      momont
+      momont,
+      status
     });
   });
 
@@ -87,6 +89,16 @@ router.post('/article/update/:id', function (req, res) {
 
 });
 
+
+
+router.post('/article/delete/:id', function (req, res) {
+  const id = req.param('id');
+  // articlesRef.child(id).remove();
+  req.flash('info', '文章已刪除');
+  //使用AJAX，必須不需要回傳，故需要使用
+  res.send('文章已刪除');
+  res.end();
+})
 
 
 router.get('/categories', function (req, res, next) {
